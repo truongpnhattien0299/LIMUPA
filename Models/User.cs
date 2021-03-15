@@ -9,5 +9,7 @@ namespace TruongPhamNhatTien_3117410256.Models
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        [NotMapped]
+        public string Confirm { get; set; }
     }
 }

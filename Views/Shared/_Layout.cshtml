@@ -1,4 +1,6 @@
-﻿<!doctype html>
+﻿@model TruongPhamNhatTien_3117410256.Models.User
+@using Microsoft.AspNetCore.Http
+<!doctype html>
 <html class="no-js" lang="zxx">
 <head>
         <meta charset="utf-8">
@@ -71,7 +73,14 @@
                                             <div class="ht-setting-trigger"><span>Setting</span></div>
                                             <div class="setting ht-setting">
                                                 <ul class="ht-setting-list">
-                                                    <li><a href="login-register.html">My Account</a></li>
+                                                    @if(Context.Session.GetString("username") != null)
+                                                    {
+                                                        <li><a href="login-register.html">Hello @Context.Session.GetString("username")</a></li>
+                                                    }
+                                                    else{
+                                                        <li><a href="login-register.html">My Account</a></li>
+                                                    }
+                                                    
                                                     <li><a href="checkout.html">Checkout</a></li>
                                                     <li><a href="login-register.html">Sign In</a></li>
                                                 </ul>

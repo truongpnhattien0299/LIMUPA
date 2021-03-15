@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -38,13 +39,31 @@ namespace TruongPhamNhatTien_3117410256.Controllers
                 var result = _context.User.Where(s=>s.Username.Equals(user.Username) && s.Password.Equals(user.Password)).ToList();
                 if(result.Count()==1)
                 {
-                    var nameOfUser = from s in _context.User select s;
+                    HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(result.FirstOrDefault().Username));
                     return Redirect("/home");
                 }
             }
             return View();
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Register(User user)
+        {
+            if(ModelState.IsValid)
+            {
+                var check = _context.User.Count(s => s.Username.Equals(user.Username));
+                if(check == 0)
+                {
+                    if(user.Password.Equals(user.Confirm))
+                    {
+                        _context.User.Add(user);
+                        await _context.SaveChangesAsync();
+                        HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(user.Username)); 
+                        return Redirect("/");
+                    }
+                }
+            }
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -28,6 +28,12 @@ namespace TruongPhamNhatTien_3117410256
         {
             services.AddControllersWithViews();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(cfg => {        
+            cfg.Cookie.Name = "SessionLipima";   
+            cfg.IdleTimeout = new TimeSpan(0,60, 0); 
+         });
+
             services.AddDbContext<CommerceDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("CommerceDbContext")));
         }
@@ -51,6 +57,8 @@ namespace TruongPhamNhatTien_3117410256
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
