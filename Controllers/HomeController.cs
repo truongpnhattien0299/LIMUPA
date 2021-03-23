@@ -58,11 +58,16 @@ namespace TruongPhamNhatTien_3117410256.Controllers
                         _context.User.Add(user);
                         await _context.SaveChangesAsync();
                         HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(user.Username)); 
-                        return Redirect("/");
+                        return Redirect("/home");
                     }
                 }
             }
-            return View();
+            return Redirect("/home");
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("username");
+            return Redirect("/home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

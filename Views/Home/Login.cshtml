@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                <a href="#"> Forgotten pasward?</a>
+                                <a href="#"> Forgotten password?</a>
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="register-button mt-0">Login</button>
@@ -45,10 +45,14 @@
                 </form>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                <form action="#">
+                <form asp-action="Register">
                     <div class="login-form">
                         <h4 class="login-title">Register</h4>
                         <div class="row">
+                            <div class="col-md-12 mb-20">
+                                <label>Name</label>
+                                <input class="mb-0" type="text" asp-for="Name" placeholder="Name">
+                            </div>
                             <div class="col-md-12 mb-20">
                                 <label>Email Address*</label>
                                 <input class="mb-0" type="text" asp-for="Username" placeholder="Email Address">
