@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,10 @@ namespace TruongPhamNhatTien_3117410256.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var product = await _context.Products.ToListAsync();
+            ViewBag.products = product;
             return View();
         }
 
