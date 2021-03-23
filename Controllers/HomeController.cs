@@ -33,11 +33,11 @@ namespace TruongPhamNhatTien_3117410256.Controllers
         [HttpPost]
         public IActionResult Login(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
-                var result = _context.User.Where(s=>s.Username.Equals(user.Username) && s.Password.Equals(user.Password)).ToList();
-                if(result.Count()==1)
+
+                var result = _context.Users.Where(s => s.Username.Equals(user.Username) && s.Password.Equals(user.Password)).ToList();
+                if (result.Count() == 1)
                 {
                     HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(result.FirstOrDefault().Username));
                     return Redirect("/home");
@@ -48,16 +48,16 @@ namespace TruongPhamNhatTien_3117410256.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var check = _context.User.Count(s => s.Username.Equals(user.Username));
-                if(check == 0)
+                var check = _context.Users.Count(s => s.Username.Equals(user.Username));
+                if (check == 0)
                 {
-                    if(user.Password.Equals(user.Confirm))
+                    if (user.Password.Equals(user.Confirm))
                     {
-                        _context.User.Add(user);
+                        _context.Users.Add(user);
                         await _context.SaveChangesAsync();
-                        HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(user.Username)); 
+                        HttpContext.Session.Set("username", Encoding.ASCII.GetBytes(user.Username));
                         return Redirect("/home");
                     }
                 }

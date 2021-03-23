@@ -14,18 +14,49 @@ namespace TruongPhamNhatTien_3117410256.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<CommerceDbContext>>()))
             {
-                // Look for any movies.
-                if (context.User.Any())
+                // Look for any thing.
+                if (context.Users.Any())
+                {
+                    return;   // DB has been seeded
+                }
+                if (context.Products.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                context.User.AddRange(
+                context.Users.AddRange(
                     new User
                     {
                         Name = "Truong Tien",
                         Username = "admin",
                         Password = "admin"
+                    }
+                );
+                context.SaveChanges();
+
+                context.Products.AddRange(
+                    new Product
+                    {
+                        Title = "Iphone 11 pro",
+                        Image = "https://res.cloudinary.com/summonersrift/image/upload/v1616489223/Picture/iPhone_11_Pro_Max_256GB_d19ax9.jpg",
+                        Price = 999,
+                        Sale = 799,
+                        Quantity = 1000,
+                        Description = "abc xyz 123"
+                    }
+                );
+                context.SaveChanges();
+                
+                context.Pictures.AddRange(
+                    new Picture
+                    {
+                        IdProduct = 1,
+                        Image = "https://res.cloudinary.com/summonersrift/image/upload/v1616489721/Picture/iPhone_11_Pro_Max_64GB_yrrmiz.jpg",
+                    },
+                    new Picture
+                    {
+                        IdProduct = 1,
+                        Image = "https://res.cloudinary.com/summonersrift/image/upload/v1616489733/Picture/iPhone_11_Pro_Max_512GB_u9udnt.jpg",
                     }
                 );
                 context.SaveChanges();
